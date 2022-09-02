@@ -55,6 +55,6 @@ test_that("Creates correct columns", {
   airr_headers_path <- system.file("extdata", "AIRR_fields.csv", package = "LymphoSeq2")
   airr_table <- readr::read_csv(airr_headers_path, trim_ws = TRUE)
   airr_fields <- colnames(airr_table)
-  expect_equal(scol, 144)
-  expect_equal(sfields, airr_fields)
+  expect_equal(scol, 158)
+  expect_equal(sfields, c(airr_fields, "bio_identity"))
 })

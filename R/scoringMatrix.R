@@ -229,7 +229,7 @@ percentSI <- function(sample_list) {
                               duplicate_frequency_2 = tidyr::replace_na(duplicate_frequency_2, 0)) %>% 
                 dplyr::group_by(junction_aa, duplicate_frequency_1, duplicate_frequency_2) %>% 
                 dplyr::summarize(min_count = min(duplicate_frequency_1, duplicate_frequency_2)) %>% 
-                ungroup()
+                dplyr::ungroup()
     min_sum <- combined %>% dplyr::pull(min_count) %>% sum()
     sum_sample1 <- combined %>% dplyr::pull(duplicate_frequency_1) %>% sum()
     sum_sample2 <- combined %>% dplyr::pull(duplicate_frequency_2) %>% sum()

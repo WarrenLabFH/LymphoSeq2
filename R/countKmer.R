@@ -32,10 +32,12 @@ countKmer <- function(study_table, k, separate = TRUE) {
             purrr::map(~calculateCounts(.x, k))
         kmer_counts <- purrr::map2(kmer_counts, c(repertoire_id_names), 
                 ~dplyr::rename(.x, !!.y := Count)) %>%
-            purrr::reduce(inner_join, by = "Kmer")
+            purrr::reduce(dplyr::inner_join, by = "Kmer") %>%
+            dplyr::filter(rowSums(dplyr::across(where(is.numeric))) != 0)
         return(kmer_counts)
     } else {
-        kmer_counts <- calculateCounts(study_table, k)
+        kmer_counts <- calculateCounts(study_table, k) %>%
+            dplyr::filter(Count > 0)
         return(kmer_counts)
     }
 }

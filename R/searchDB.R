@@ -43,47 +43,51 @@ searchDB <- function(study_table) {
 #' @export
 #' @import magrittr httr jsonlite
 searchIreceptor <- function(...) {
-    sequence_row <- tibble(...)
+    sequence_row <- tibble::tibble(...)
     path <- "https://ipa1.ireceptor.org/v2/sequences_summary?"
     request <- GET(url=path, 
-               query= list(username="shashi_ravishankar", 
-               junction_aa=sequence_row$sequence_aa)) 
+               query= list(username="shashi_ravishankar",
+               junction_aa=sequence_row$sequence_aa))
     response_list <- content(request, as = "text", encoding = "UTF-8") %>%
-                     jsonlite::fromJSON(flatten = TRUE) 
-     if (length(response_list$summary) == 0){
-        response_table <- tibble(count = NA, 
-                                 disease_diagnosis = NA, 
-                                 pub_ids = NA, 
-                                 disease_state_sample = NA, 
+                     jsonlite::fromJSON(flatten = TRUE)
+     if (length(response_list$summary) == 0) {
+        response_table <- tibble::tibble(count = NA,
+                                 disease_diagnosis = NA,
+                                 pub_ids = NA,
+                                 disease_state_sample = NA,
                                  cell_subset = NA,
                                  ir_project_sample_id = NA,
                                  junction_aa = sequence_row$sequence_aa)
-        response_table <- left_join(sequence_row, 
-                                    response_table, 
+        response_table <- dplyr::left_join(sequence_row,
+                                    response_table,
                                     by=c("sequence_aa" = "junction_aa"))                 
     } else {
-        response_items <- response_list$items %>% as_tibble() %>% select(junction_aa, ir_project_sample_id) #dapply(`[`, c('junction_aa', 'ir_project_sample_id')) %>% as_tibble()
-        response_summary <- response_list$summary %>% as_tibble() %>% select(disease_diagnosis, pub_ids, disease_state_sample, cell_subset, ir_project_sample_id) #dapply(`[`, c('disease_diagnosis', 'pub_ids', 'disease_state_sample', 'cell_subset', 'ir_project_sample_id')) %>% as_tibble()
-        response_table <- left_join(response_items, 
+        response_items <- response_list$items %>%
+            dplyr::as_tibble() %>%
+            dplyr::select(junction_aa, ir_project_sample_id) #dapply(`[`, c('junction_aa', 'ir_project_sample_id')) %>% as_tibble()
+        response_summary <- response_list$summary %>%
+            dplyr::as_tibble() %>%
+            dplyr::select(disease_diagnosis, pub_ids, disease_state_sample, cell_subset, ir_project_sample_id) #dapply(`[`, c('disease_diagnosis', 'pub_ids', 'disease_state_sample', 'cell_subset', 'ir_project_sample_id')) %>% as_tibble()
+        response_table <- dplyr::left_join(response_items,
                                     response_summary,
-                                    by="ir_project_sample_id") %>%
-                        select(ir_project_sample_id, 
-                                junction_aa, 
-                                disease_diagnosis, 
-                                pub_ids, 
-                                disease_state_sample, 
+                                    by = "ir_project_sample_id") %>%
+                        dplyr::select(ir_project_sample_id,
+                                junction_aa,
+                                disease_diagnosis,
+                                pub_ids,
+                                disease_state_sample,
                                 cell_subset) %>%
-                        group_by(ir_project_sample_id, 
+                        dplyr::group_by(ir_project_sample_id,
                                     junction_aa) %>%
-                        summarize(count = n(), 
-                                    disease_diagnosis = first(disease_diagnosis), 
-                                    pub_ids = first(pub_ids), 
-                                    disease_state_sample = first(disease_state_sample), 
-                                    cell_subset= first(cell_subset)) %>%
-                        ungroup()
-        response_table <- left_join(sequence_row, 
-                                    response_table, 
-                                    by=c("sequence_aa" = "junction_aa"))                 
+                        dplyr::summarize(count = n(),
+                                    disease_diagnosis = first(disease_diagnosis),
+                                    pub_ids = first(pub_ids),
+                                    disease_state_sample = first(disease_state_sample),
+                                    cell_subset = first(cell_subset)) %>%
+                        dplyr::ungroup()
+        response_table <- dplyr::left_join(sequence_row,
+                                    response_table,
+                                    by = c("sequence_aa" = "junction_aa"))
     }
     return(response_table)
 }
