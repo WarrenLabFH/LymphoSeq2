@@ -4,14 +4,12 @@
 \alias{runINext}
 \title{Run iNEXT on repertoire_ids}
 \usage{
-runINext(sample_table, color = "repertoire_id")
+runINext(sample_table)
 }
 \arguments{
 \item{sample_table}{A tibble consisting antigen receptor sequencing
-data imported by the LymphoSeq function readImmunoSeq. "junction_aa", "duplicate_count", and
-"duplicate_frequency" are required columns.}
-
-\item{color}{}
+data imported by the LymphoSeq2 function readImmunoSeq. "junction_aa",
+"duplicate_count", and "duplicate_frequency" are required columns.}
 }
 \description{
 Given a repertoire_id table, for each generate rarefaction curves to estimate

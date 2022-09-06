@@ -8,7 +8,7 @@ topFreq(productive_table, frequency = 0.1)
 }
 \arguments{
 \item{productive_table}{A tibble of productive amino acid sequences
-imported using the function LymphoSeq function productiveSeq where the
+imported using the function LymphoSeq2 function productiveSeq where the
 aggregate parameter was set to "junction_aa".}
 
 \item{frequency}{The minimum frequency that the sequence appears in any of
@@ -30,4 +30,10 @@ specified minimum frequency threshold and reports the number of samples that
 the sequence appears in along with the minimum, maximum, and mean frequency
 across all samples.  For T cell receptor beta sequences, the \\% prevalence
 and antigen specificity of that sequence is also provided.
+}
+\examples{
+file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
+stable <- readImmunoSeq(path = file_path)
+atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
+top_freq <- topFreq(productive_table = atable, frequency = 0.1)
 }

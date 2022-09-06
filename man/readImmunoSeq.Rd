@@ -2,18 +2,18 @@
 % Please edit documentation in R/readImmunoSeq.R
 \name{readImmunoSeq}
 \alias{readImmunoSeq}
+\alias{getFileType}
 \alias{getStandard}
-\alias{readFiles}
-\alias{iReceptorFormat}
+\alias{getAIRRFields}
 \title{Read ImmunoSeq files}
 \usage{
-readImmunoSeq(path, recursive = FALSE)
+readImmunoSeq(path, recursive = FALSE, threads = parallel::detectCores()/2)
 
-getStandard(clone_file, airr_fields, matching_fields)
+getFileType(col_names)
 
-readFiles(clone_file, empty_airr_frame, matching_fields, progress)
+getStandard(clone_file, progress, threads)
 
-iReceptorFormat(clone_frame)
+getAIRRFields(clone_file, threads)
 }
 \arguments{
 \item{path}{Path to the directory containing tab-delimited files.  Only
@@ -23,52 +23,43 @@ the same as names of the files.}
 \item{clone_file}{.tsv file containing results from AIRRSeq pipeline}
 
 \item{airr_fields}{A character vector of MiAIRR headers}
-
-\item{clone_frame}{An AIRR compliant tibble}
 }
 \value{
 Returns a tibble with MiAIRR headers and repertoire_id
 
+Returns "immunoSEQLegacy", "immunoSEQ", "10X", "BGI"
+
 Tibble of given data with MiAIRR fields
 
-Tibble in MiAIRR format
-
-Tibble in iReceptor format
+Named vector of corresponding AIRR fields
 }
 \description{
 Imports tab-separated value (.tsv) files exported by the Adaptive
 Biotechnologies ImmunoSEQ analyzer, BGI IR-SEQ, MiXCR and stores
 them as MiAIRR compliant tibble.
 }
+\section{Get file type}{
+
+
+Retrives the file type
+}
+
 \section{Get standard headers}{
 
 
-Retrives MiAIRR standard compliant fields from the clone files
+Converts AIRR-Seq data into MiAIRR compatible format
 }
 
-\section{Read clone file from path}{
+\section{Resolve file type from fields}{
 
 
-Given the path to a single AIRRSeq clone file, generate MiAIRR compliant tibble.
-}
-
-\section{Get iReceptor standard format}{
-
-
-Returns a tibble that is compliant with the iReceptor repertoire format.
+Given the path to a single AIRRSeq clone file, determine the file type and
+return a named vector that can be used to repair headers while reading input.
 }
 
 \examples{
-<<<<<<< HEAD
-file.path <- system.file("extdata", "TCRB_sequencing", 
- package = "LymphoSeq2")
-
-study_table <- readImmunoSeq(path = file.path,
-                             recursive = FALSE)
-=======
 file.path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 
 study_table <- readImmunoSeq(path = file.path, recursive = FALSE)
 
->>>>>>> 8c93adc60131706d11b3a560be853bb3173513c5
 }
