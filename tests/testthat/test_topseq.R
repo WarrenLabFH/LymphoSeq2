@@ -37,7 +37,7 @@ test_that("Top sequences across samples is correctly identified", {
             dplyr::group_split(.keep = TRUE) %>%
             purrr::map(LymphoSeq2::topSeqs) %>%
             dplyr::bind_rows()
-  expect_true(base::all.equal(ctable, ttable))
+  expect_true(dplyr::all_equal(ctable, ttable))
 })
 
 
