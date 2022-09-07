@@ -116,6 +116,8 @@ alignSeq <- function(study_table, repertoire_ids = NULL,
     #Prepare a string list to name annotate the sequences with repertoire_ids
     #if provided or use gene family names with sequence counts 
     if(!is.null(repertoire_ids)){
+        search_table <- search_table %>%
+            dplyr::mutate(repertoire_id = paste0(repertoire_id, "_", dplyr::row_number()))
         names(string_list) <- search_table %>%
             dplyr::pull(repertoire_id) 
     } else {
@@ -131,6 +133,7 @@ alignSeq <- function(study_table, repertoire_ids = NULL,
     }
     #Perform multiple sequence alignment using the method described by the user
     base::set.seed(12357)
+    # alignment <- DECIPHER::AlignSeqs(string_list)
     alignment <- msa::msa(string_list, method = method)
     return(alignment)
 }

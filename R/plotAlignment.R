@@ -15,8 +15,11 @@
 #' 
 #' msa <- alignSeq(ntable, repertoire_id = "IGH_MVQ92552A_BL", type = "junction", 
 #'          method = "ClustalW")
+#' 
+#' plotAlignment(msa)
 #'
 #' @export
+#' @import ggmsa
 plotAlignment <- function(msa) {
-  ggmsa::ggmsa(msa, font = NULL, color = "Chemistry_NT")
+  ggmsa::ggmsa(msa@unmasked, font = NULL, color = "Chemistry_NT")
 }
