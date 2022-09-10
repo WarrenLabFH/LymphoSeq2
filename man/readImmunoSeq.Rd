@@ -20,9 +20,18 @@ getAIRRFields(clone_file, threads)
 files with the extension .tsv are imported.  The names of the data frames are
 the same as names of the files.}
 
+\item{recursive}{A logical value to indicate if all directory paths should
+be listed recursively. TRUE will list recursively. Default is FALSE.}
+
+\item{threads}{Number of threads for parallel processing. Default is half of
+the number of available cores on the machine.}
+
+\item{col_names}{A character vector of the column names of the input file.}
+
 \item{clone_file}{.tsv file containing results from AIRRSeq pipeline}
 
-\item{airr_fields}{A character vector of MiAIRR headers}
+\item{progress}{A progress bar to show status of conversion to
+MiAIRR-compliant data.}
 }
 \value{
 Returns a tibble with MiAIRR headers and repertoire_id

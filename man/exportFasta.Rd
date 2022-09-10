@@ -11,14 +11,14 @@ exportFasta(
 )
 }
 \arguments{
+\item{study_table}{A tibble consisting of antigen receptor sequences
+imported by the LymphoSeq function readImmunoSeq.}
+
 \item{type}{A character vector indicating whether "junction_aa" or "junction" sequences
 should be exported.  If "junction_aa" is specified, then run productiveSeqs first.}
 
 \item{names}{A character vector of one or more column names to name the sequences.
 If "rank" is specified, then the rank order of the sequences by frequency is used.}
-
-\item{sample_table}{A tibble consisting of antigen receptor sequences
-imported by the LymphoSeq function readImmunoSeq.}
 }
 \value{
 Exports fasta files to the working directory.

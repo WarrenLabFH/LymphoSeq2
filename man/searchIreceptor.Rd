@@ -6,9 +6,6 @@
 \usage{
 searchIreceptor(...)
 }
-\arguments{
-\item{row_tibble}{A row tibble mapped from searchDB}
-}
 \value{
 Returns a tibble of with sample name and instance in the sample
 that the published TCR sequence appeared along with additional

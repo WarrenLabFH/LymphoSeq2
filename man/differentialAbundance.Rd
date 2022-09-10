@@ -55,6 +55,9 @@ stable <- readImmunoSeq(path = file_path)
 
 atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 
-differentialAbundance(study_table = atable, repertoire_ids = c("TRB_Unsorted_949", "TRB_Unsorted_1320"), 
-                      type = "junction_aa", q = 0.01, zero = 0.001)
+differentialAbundance(study_table = atable,
+                      repertoire_ids = c("TRB_Unsorted_949", "TRB_Unsorted_1320"),
+                      type = "junction_aa",
+                      q = 0.01,
+                      zero = 0.001)
 }

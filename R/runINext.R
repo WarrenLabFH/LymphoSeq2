@@ -8,6 +8,7 @@
 #' data imported by the LymphoSeq2 function readImmunoSeq. "junction_aa",
 #' "duplicate_count", and "duplicate_frequency" are required columns.
 #' @examples
+#' library(magrittr)
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' stable <- readImmunoSeq(path = file_path)
 #' atable <- productiveSeq(stable, 

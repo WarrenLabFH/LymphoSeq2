@@ -69,9 +69,9 @@ searchSeq <- function(study_table, sequence, seq_type = "junction", edit_distanc
 }
 
 #' Find sequences of interest
-#' 
+#'
 #' @describeIn searchSeq Find all sequences below edit distance threshold from query list
-#' 
+#'
 #' @inheritParams searchSeq
 findSeq <- function(sequence, query_list, edit_distance, seq_type, match){
     if (match == "global") {

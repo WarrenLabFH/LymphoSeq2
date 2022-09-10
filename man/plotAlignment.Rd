@@ -25,6 +25,8 @@ ntable <- productiveSeq(stable, aggregate = "junction")
 msa <- alignSeq(ntable, repertoire_id = "IGH_MVQ92552A_BL", type = "junction", 
          method = "ClustalW")
 
+plotAlignment(msa)
+
 }
 \seealso{
 The function utilizes ggmsa package for visualizations. Further details

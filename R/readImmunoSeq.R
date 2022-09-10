@@ -9,6 +9,10 @@
 #' @param path Path to the directory containing tab-delimited files.  Only
 #' files with the extension .tsv are imported.  The names of the data frames are 
 #' the same as names of the files.
+#' @param recursive A logical value to indicate if all directory paths should
+#' be listed recursively. TRUE will list recursively. Default is FALSE.
+#' @param threads Number of threads for parallel processing. Default is half of
+#' the number of available cores on the machine.
 #' 
 #' @return Returns a tibble with MiAIRR headers and repertoire_id
 #'
@@ -56,7 +60,7 @@ readImmunoSeq <- function(path, recursive = FALSE, threads = parallel::detectCor
 #'
 #' Retrives the file type
 #'
-#' @param clone_file A .tsv file to idetify the file type
+#' @param col_names A character vector of the column names of the input file.
 #' @return Returns "immunoSEQLegacy", "immunoSEQ", "10X", "BGI"
 #'
 #' @import magrittr
@@ -91,8 +95,12 @@ getFileType <- function(col_names) {
 #'
 #' Converts AIRR-Seq data into MiAIRR compatible format
 #'
-#' @param clone_file A .tsv file to read in and standardize its fields to be MiAIRR compliant
-#' @param airr_fields A character vector of MiAIRR headers
+#' @param clone_file A .tsv file to read in and standardize its fields to be
+#' MiAIRR compliant.
+#' @param progress A progress bar to show status of conversion to
+#' MiAIRR-compliant data.
+#' @param threads Number of threads for parallel processing. Default is half of
+#' the number of available cores on the machine.
 #' @return Tibble of given data with MiAIRR fields
 #'
 #' @import magrittr
@@ -185,6 +193,8 @@ getStandard <- function(clone_file, progress, threads) {
 #' return a named vector that can be used to repair headers while reading input.
 #'
 #' @param clone_file .tsv file containing results from AIRRSeq pipeline
+#' @param threads Number of threads for parallel processing. Default is half of
+#' the number of available cores on the machine.
 #'
 #' @return Named vector of corresponding AIRR fields
 #'
@@ -269,11 +279,3 @@ getAIRRFields <- function(clone_file, threads) {
     }
     return(matching_fields)
 }
-
-
-
-
-
-
-
-

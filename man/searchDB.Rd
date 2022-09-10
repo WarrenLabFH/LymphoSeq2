@@ -27,7 +27,7 @@ file.path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 
 study_table <- readImmunoSeq(path = file.path)
 
-productive_aa <- productiveSeq(study_table = study_table, aggregate = "aminoAcid")
+productive_aa <- productiveSeq(study_table = study_table, aggregate = "junction_aa")
 
 top_seqs <- topSeqs(productive_table = productive_aa, top = 1)
 searchDB(study_table = top_seqs)

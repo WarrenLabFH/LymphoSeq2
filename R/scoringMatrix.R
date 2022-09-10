@@ -113,10 +113,10 @@ bhattacharyyaCoefficient <- function(sample_list) {
 #' 
 #' Calculates the similarity score of two samples.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 
@@ -154,10 +154,10 @@ similarityScore <- function(sample_list) {
 #' a Jaccard index, Sorensen index gives a greater weight to shared sequences
 #' over unique sequences.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 
@@ -202,10 +202,10 @@ sorensenIndex <- function(sample_list) {
 #' similarity index, not only compares the number of similar and dissimilar species 
 #' present between two sites, but also incorporate abundance.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 

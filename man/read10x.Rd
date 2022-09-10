@@ -9,6 +9,9 @@ read10x(path, recursive = FALSE)
 \arguments{
 \item{path}{Path to the directory containing .tsv files. Only
 files with the .tsv extension are imported.}
+
+\item{recursive}{A logical value to indicate if all directory paths should
+be listed recursively. TRUE will list recursively. Default is FALSE.}
 }
 \value{
 Returns a tibble with MiAIRR headers and repertoire_id

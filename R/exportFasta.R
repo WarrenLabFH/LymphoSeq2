@@ -2,7 +2,7 @@
 #' 
 #' Export junction or amino acid sequences in fasta format.
 #' 
-#' @param sample_table A tibble consisting of antigen receptor sequences 
+#' @param study_table A tibble consisting of antigen receptor sequences 
 #' imported by the LymphoSeq function readImmunoSeq.
 #' @param type A character vector indicating whether "junction_aa" or "junction" sequences
 #' should be exported.  If "junction_aa" is specified, then run productiveSeqs first.

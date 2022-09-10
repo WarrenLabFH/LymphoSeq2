@@ -44,6 +44,6 @@ ggplot2::ggtitle("Figure Title")
 \seealso{
 An excellent resource for examples on how to reformat a ggplot can
 be found in the R Graphics Cookbook online (\url{http://www.cookbook-r.com/Graphs/}).
-The functions to create the similarity or Bhattacharyya matrix can be found
-here: \code{\link{similarityMatrix}} and \code{\link{bhattacharyyaMatrix}}
+The functions to create the Bhattacharyya, Similarity, Sorensen, or PSI matrix can be found
+here: \code{\link{scoringMatrix}}
 }

@@ -15,7 +15,7 @@ identifier}
 
 \item{chain}{The chain to examine to select the most frequently
 occurring one. Values given can only be "TRA" or "TRB" to indicate
-alpha or beta chain respectively.}
+alpha or beta chain respectively. Default is "TRA".}
 }
 \value{
 A tibble with one row of data that contains the most

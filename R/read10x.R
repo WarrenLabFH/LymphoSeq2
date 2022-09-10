@@ -6,6 +6,8 @@
 #' 
 #' @param path Path to the directory containing .tsv files. Only
 #' files with the .tsv extension are imported.
+#' @param recursive A logical value to indicate if all directory paths should
+#' be listed recursively. TRUE will list recursively. Default is FALSE.
 #' @return Returns a tibble with MiAIRR headers and repertoire_id
 #' @export
 #' @import magrittr
@@ -77,7 +79,7 @@ collpase_chains <- function(clone_file) {
 #' (one file)
 #' @param chain The chain to examine to select the most frequently
 #' occurring one. Values given can only be "TRA" or "TRB" to indicate
-#' alpha or beta chain respectively.
+#' alpha or beta chain respectively. Default is "TRA".
 #' @return A tibble with one row of data that contains the most
 #' frequently occuring chain.
 selectChain <- function(barcode_data, clone_data, chain = "TRA") {

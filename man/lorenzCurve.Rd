@@ -32,6 +32,8 @@ The plot is made using the package ggplot2 and can be reformatted
 using ggplot2 functions.  See examples below.
 }
 \examples{
+library(magrittr)
+
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 
 stable <- readImmunoSeq(path = file_path)

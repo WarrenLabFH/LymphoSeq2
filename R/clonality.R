@@ -51,7 +51,7 @@ clonality <- function(study_table) {
 
 #' Get summary statistics for each repertoire_id in the analysis
 #'
-#' @param sample_table immune repertoire tibble for each a repertoire_id
+#' @param study_table immune repertoire tibble for each a repertoire_id
 #'
 #' @return Tibble summarizing the sequence information for each repertoire_id
 #'

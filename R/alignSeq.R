@@ -7,7 +7,7 @@
 #' 
 #' @param study_table A tibble consisting of antigen receptor sequences 
 #' imported by the LymphoSeq function readImmunoSeq.
-#' @param repertoire_id A character vector indicating the name of the repertoire_id in the productive
+#' @param repertoire_ids A character vector indicating the name of the repertoire_id in the productive
 #' sequence list. 
 #' @param sequence_list A character vector of one ore more amino acid or junction 
 #' CDR3 sequences to search.
@@ -116,8 +116,6 @@ alignSeq <- function(study_table, repertoire_ids = NULL,
     #Prepare a string list to name annotate the sequences with repertoire_ids
     #if provided or use gene family names with sequence counts 
     if(!is.null(repertoire_ids)){
-        search_table <- search_table %>%
-            dplyr::mutate(repertoire_id = paste0(repertoire_id, "_", dplyr::row_number()))
         names(string_list) <- search_table %>%
             dplyr::pull(repertoire_id) 
     } else {
@@ -133,9 +131,6 @@ alignSeq <- function(study_table, repertoire_ids = NULL,
     }
     #Perform multiple sequence alignment using the method described by the user
     base::set.seed(12357)
-    # alignment <- DECIPHER::AlignSeqs(string_list)
     alignment <- msa::msa(string_list, method = method)
     return(alignment)
 }
-
-
