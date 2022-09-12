@@ -15,6 +15,7 @@
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' unique_seqs <- uniqueSeqs(productive_table = atable, unique_type = "junction_aa")
 #' @export
+#' @import magrittr
 uniqueSeqs <- function(productive_table = productive_table, unique_type = "junction_aa") {
     # Add checks to see if the tibble is a prudctive table
     unique_seq <- tibble::tibble()
@@ -22,12 +23,12 @@ uniqueSeqs <- function(productive_table = productive_table, unique_type = "junct
         unique_seq <- productive_table %>% 
                       dplyr::group_by(junction) %>% 
                       dplyr::summarize(duplicate_count = sum(duplicate_count)) %>% 
-                      dplyr::arrange(desc(duplicate_count))
+                      dplyr::arrange(dplyr::desc(duplicate_count))
     } else if (unique_type == "junction_aa") {
         unique_seq <- productive_table %>% 
                       dplyr::group_by(junction_aa) %>% 
                       dplyr::summarize(duplicate_count = sum(duplicate_count)) %>% 
-                      dplyr::arrange(desc(duplicate_count))
+                      dplyr::arrange(dplyr::desc(duplicate_count))
     }
     return(unique_seq)
 }

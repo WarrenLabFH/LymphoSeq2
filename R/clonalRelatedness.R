@@ -53,11 +53,11 @@ clonalRelatedness <- function(study_table, editDistance = 10){
 #' 
 #' @export
 #' @importFrom stringdist stringdist 
-#' @import magrittr  
+#' @import magrittr
 getRelatedness <- function(sample_table, editDistance=10) {
     repertoire_id <- sample_table$repertoire_id[1]
     top_seq <- sample_table %>% 
-        dplyr::arrange(desc(duplicate_count)) %>% 
+        dplyr::arrange(dplyr::desc(duplicate_count)) %>% 
         dplyr::slice_head(n = 1) %>% 
         dplyr::select(junction) %>% 
         base::as.character()

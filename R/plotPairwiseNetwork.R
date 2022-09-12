@@ -20,9 +20,9 @@ pairwiseNetwork <- function(matrix) {
     g <- igraph::graph_from_adjacency_matrix(matrix, mode = "undirected",
                                              weighted = TRUE, diag = FALSE)
 
-    plot(g, layout = igraph::layout.circle,
-            edge.width = igraph::E(g)$weight * 5,
-            vertex.size = 10,
-            vertex.label.cex = 1,
-            vertex.label.dist = 2)
+    ggmsa::plot(g, layout = igraph::layout.circle,
+                edge.width = igraph::E(g)$weight * 5,
+                vertex.size = 10,
+                vertex.label.cex = 1,
+                vertex.label.dist = 2)
 }

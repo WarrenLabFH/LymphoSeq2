@@ -23,7 +23,7 @@
 #' geneFreq(ntable, locus = "VDJ", family = FALSE)
 #' 
 #' @export
-#' @import magrittr dtplyr
+#' @import magrittr
 geneFreq <- function(productive_nt, locus = "V|D|J", family = FALSE) {
     if (family){
         gene_names <- productive_nt %>% 

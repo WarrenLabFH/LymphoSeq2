@@ -17,12 +17,13 @@
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' top_seqs <- topSeqs(productive_table = atable, top = 1)
 #' @export
-#' @import magrittr dtplyr
+#' @import magrittr
 topSeqs <- function(productive_table, top = 1) {
     top_seqs <- productive_table %>%
-                dtplyr::lazy_dt() %>%
+                dtplyr::lazy_dt()
+    top_seqs <- top_seqs %>%
                 dplyr::group_by(repertoire_id) %>%
-                dplyr::arrange(desc(duplicate_frequency)) %>%
+                dplyr::arrange(dplyr::desc(duplicate_frequency)) %>%
                 dplyr::slice_head(n = top) %>%
                 dplyr::as_tibble()
     return(top_seqs)

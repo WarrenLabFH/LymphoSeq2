@@ -19,7 +19,6 @@
 #' @export
 #' @import magrittr
 #' @import iNEXT
-#' @import purrr
 runINext <- function(sample_table) {
     repertoire_id <- sample_table$repertoire_id[1]
     rarefaction_tables <- sample_table %>%

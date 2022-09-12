@@ -71,7 +71,7 @@ aggreateSeq <- function(study_table, aggregate, prevalence, progress_bar) {
                        dplyr::mutate(vdj_comb_count = sum(duplicate_count)) %>%
                        dplyr::ungroup() %>%
                        dplyr::group_by(junction) %>%
-                       dplyr::arrange(desc(duplicate_count), desc(vdj_comb_count)) %>%
+                       dplyr::arrange(dplyr::desc(duplicate_count), dplyr::desc(vdj_comb_count)) %>%
                        dplyr::summarize(repertoire_id = dplyr::first(repertoire_id),
                                         junction_aa = dplyr::first(junction_aa),
                                         duplicate_count = base::sum(duplicate_count),
@@ -98,7 +98,7 @@ aggreateSeq <- function(study_table, aggregate, prevalence, progress_bar) {
                        dplyr::mutate(vdj_comb_count = base::sum(duplicate_count)) %>%
                        dplyr::ungroup() %>%
                        dplyr::group_by(junction_aa) %>%
-                       dplyr::arrange(desc(duplicate_count), desc(vdj_comb_count)) %>%
+                       dplyr::arrange(dplyr::desc(duplicate_count), dplyr::desc(vdj_comb_count)) %>%
                        dplyr::summarize(repertoire_id = dplyr::first(repertoire_id),
                                         duplicate_count = base::sum(duplicate_count),
                                         v_call = dplyr::first(v_call),

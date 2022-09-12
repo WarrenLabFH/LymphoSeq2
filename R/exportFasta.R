@@ -28,23 +28,23 @@ exportFasta <- function(study_table, type = "junction",
                         names = c("rank", "junction_aa", "duplicate_count")) {
     if (type == "junction") {
         study_table <- study_table %>% 
-            dplyr::arrange(repertoire_id, desc(duplicate_frequency)) %>% 
+            dplyr::arrange(repertoire_id, dplyr::desc(duplicate_frequency)) %>% 
             tibble::rowid_to_column() %>% 
             dplyr::mutate(sequences = junction) %>%
             tidyr::unite(fasta_name, names)
     } else if (type == "junction_aa") {
         study_table <- productiveSeq(study_table)
         study_table <- study_table %>% 
-            dplyr::arrange(repertoire_id, desc(duplicate_frequency)) %>% 
+            dplyr::arrange(repertoire_id, dplyr::desc(duplicate_frequency)) %>% 
             tibble::rowid_to_column() %>% 
             dplyr::mutate(sequences = junction_aa) %>%
             tidyr::unite(fasta_name, names) 
     }
     study_table %>% 
-    dplyr::group_by(repertoire_id) %>% 
-    dplyr::group_split() %>% 
-    purrr::map(~writeFasta(.x, type))
-    message(paste("Fasta files saved to", getwd()))
+        dplyr::group_by(repertoire_id) %>% 
+        dplyr::group_split() %>% 
+        purrr::map(~writeFasta(.x, type))
+        message(paste("Fasta files saved to", getwd()))
 }
 
 writeFasta <- function(sample_table, type) {

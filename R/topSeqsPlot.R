@@ -30,7 +30,7 @@
 topSeqsPlot <- function(study_table, top = 10) {
     dominant <- study_table %>%
                 dplyr::group_by(repertoire_id) %>%
-                dplyr::arrange(desc(duplicate_frequency)) %>%
+                dplyr::arrange(dplyr::desc(duplicate_frequency)) %>%
                 dplyr::slice_head(n = top) %>%
                 dplyr::select(repertoire_id, junction_aa, duplicate_frequency) %>%
                 dplyr::mutate(Sequence = 1:dplyr::n(),
@@ -46,7 +46,7 @@ topSeqsPlot <- function(study_table, top = 10) {
                    dplyr::mutate(Sequence = as.factor(11)) %>%
                    dplyr::ungroup()
     topfreq <- dplyr::bind_rows(dominant, subdominant) %>%
-               dplyr::arrange(repertoire_id, Sequence, desc(Frequency)) %>%
+               dplyr::arrange(repertoire_id, Sequence, dplyr::desc(Frequency)) %>%
                dplyr::mutate(Frequency = Frequency *  100)
     getPalette <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
     sample_order <- subdominant %>%

@@ -82,7 +82,7 @@ kmerPlot <- function(kmer_table, top = 10) {
     kmer_table <- kmer_table %>%
         dplyr::group_by(Kmer) %>%
         dplyr::mutate(total = sum(count)) %>%
-        dplyr::arrange(desc(total)) %>%
+        dplyr::arrange(dplyr::desc(total)) %>%
         head(top * rep_num)
     bar <- ggplot2::ggplot(kmer_table, aes(fill = repertoire_id, y = count, 
             x = Kmer)) +
