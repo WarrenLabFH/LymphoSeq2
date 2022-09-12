@@ -155,7 +155,7 @@ One of the drawbacks of the clonality metric is that it does not take into accou
 
 ```{r readIGH}
 IGH_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
-IGH_table <- LymphoSeq2::readImmunoSeq(path = IGH_path)
+IGH_table <- LymphoSeq2::readImmunoSeq(path = IGH_path, threads = 1)
 LymphoSeq2::clonalRelatedness(study_table = IGH_table, editDistance = 10)
 ```
 
@@ -414,7 +414,7 @@ LymphoSeq2::searchSeq(study_table = cleansed, sequence = "CASSESAGSTGELFF", seq_
 
 Rarefaction and extrapolation curves allow for comparison of TCR diversity across repertoires given a ideal sequencing depth. Rarefaction and extrapolation curves are drawn by sampling a sequencing dataset to various depths to understand the trajectory of sequence diversity and then extrapolating the curve to an ideal depth.
 
-```{r rarefation, warning=FALSE}
+```{r rarefation}
 LymphoSeq2::plotRarefactionCurve(study_table = aa_table)
 ```
 
