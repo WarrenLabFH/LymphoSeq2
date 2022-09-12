@@ -52,9 +52,9 @@ the sequences different by a single amino acid or junction.
 }
 \section{Functions}{
 \itemize{
-\item \code{findSeq}: Find all sequences below edit distance threshold from query list
-}}
+\item \code{findSeq()}: Find all sequences below edit distance threshold from query list
 
+}}
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 stable <- readImmunoSeq(path = file_path)
