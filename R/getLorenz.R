@@ -9,7 +9,7 @@
 getLorenz <- function(sample_table) {
   repertoire_id <- sample_table$repertoire_id[1]
   lc <- ineq::Lc(sample_table$duplicate_frequency)
-  lctbl <- tibble::tibble(L = lc$L, p = lc$p) %>% 
+  lctbl <- dplyr::tibble(L = lc$L, p = lc$p) %>% 
     dplyr::mutate(repertoire_id = repertoire_id)
   return(lctbl)
 }

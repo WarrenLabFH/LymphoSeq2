@@ -31,15 +31,20 @@ plotTrack <- function(clone_table, alist = NULL, apal = NULL, breaks = 2, alphas
   # Generate a distinct palatte for Amino acid sequences
   # Color sequences by occurence
   # Generate the alluvial plot to trace the frequency variation of top n Amino acid sequences
-  clone_table <- clone_table %>% 
+  rep_order <- clone_table %>%
+                dplyr::pull(repertoire_id) %>%
+                unique()
+  clone_table <- clone_table %>%
                   dplyr::group_by(repertoire_id) %>% 
                   dplyr::arrange(desc(duplicate_frequency)) %>% 
                   dplyr::ungroup()
+  clone_table$repertoire_id <- factor(clone_table$repertoire_id,
+                                     levels = rep_order)
   if (!is.null(alist)) {
     if (is.null(apal)) {
       pal <- grDevices::colorRampPalette(c("red", "yellow"))
       apal <- pal(length(alist))
-    } 
+    }
     names(apal) <- alist
     clone_table <- clone_table %>% 
                    dplyr::mutate(filler = dplyr::if_else(junction_aa %in% alist, apal[junction_aa], "grey"))
@@ -60,7 +65,7 @@ plotTrack <- function(clone_table, alist = NULL, apal = NULL, breaks = 2, alphas
               ggplot2::theme_classic() +
               ggplot2::theme(legend.position = "none",
                              axis.text.x = element_text(angle = -90)) 
-  } else {  
+  } else {
     sankey <- ggplot2:: ggplot(clone_table, 
                                aes(x = repertoire_id, y = duplicate_frequency, stratum = junction_aa, 
                                    alluvium=junction_aa, fill=junction_aa, label=junction_aa)) + 

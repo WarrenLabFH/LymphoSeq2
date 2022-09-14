@@ -104,7 +104,7 @@ bhattacharyyaCoefficient <- function(sample_list) {
                                    duplicate_frequency_q = tidyr::replace_na(duplicate_frequency_q, 0))
     s <- sample_merged$duplicate_frequency_p * sample_merged$duplicate_frequency_q
     bc <- base::sum(base::sqrt(s))
-    bhattacharyya_coefficient <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    bhattacharyya_coefficient <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                                 sample2=sample2$repertoire_id[1],
                                                 bhattacharyya_coefficient=bc)
     return(bhattacharyya_coefficient)
@@ -143,7 +143,7 @@ similarityScore <- function(sample_list) {
           dplyr::summarise(total = sum(duplicate_count)) %>% 
           base::as.integer()
     score <- (s1 + s2)/ (base::sum(sample1$duplicate_count) + base::sum(sample2$duplicate_count))
-    similarity_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    similarity_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        similarityScore=score)
     return(similarity_score)
@@ -191,7 +191,7 @@ sorensenIndex <- function(sample_list) {
          unique() %>% 
          length()
     sorensen_index <- (2 * a)/ ((2*a) + b + c)
-    sorensen_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    sorensen_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        sorensenIndex=sorensen_index)
     return(sorensen_score)
@@ -234,7 +234,7 @@ percentSI <- function(sample_list) {
     sum_sample1 <- combined %>% dplyr::pull(duplicate_frequency_1) %>% sum()
     sum_sample2 <- combined %>% dplyr::pull(duplicate_frequency_2) %>% sum()
     percent_si <- 200 * sum(min_sum) / (sum_sample1 + sum_sample2)
-    psi_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    psi_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        percentSI=percent_si)
     return(psi_score)

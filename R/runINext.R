@@ -39,7 +39,8 @@ runINext <- function(sample_table) {
                                        se = TRUE,
                                        conf = 0.95,
                                        nboot = 10)
-    rarefaction_tables <- rarefaction_tables$iNextEst[[repertoire_id]] %>%
+    # rarefaction_tables <- rarefaction_tables$iNextEst[[repertoire_id]] %>%
+    rarefaction_tables <- rarefaction_tables$iNextEst$size_based %>%
                           dplyr::as_tibble() %>%
                           dplyr::mutate(repertoire_id = repertoire_id)
     return(rarefaction_tables)
