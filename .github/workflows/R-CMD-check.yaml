@@ -21,7 +21,7 @@ jobs:
           --data '{"event_type": "LymphoSeq2_update", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
           
   R-CMD-check:
-    runs-on: ${{ matrix.config.os }} osx-arm64
+    runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
