@@ -22,6 +22,6 @@
 #' @import ggmsa
 plotAlignment <- function(msa) {
   msa <- msa@unmasked
-  names(msa) <- lapply(seq_along(names(msa)), function(i) paste0(names(msa)[[i]], "_", i))
+  names(msa) <- purrr::map(seq_along(names(msa)), function(i) paste0(names(msa)[[i]], "_", i))
   ggmsa::ggmsa(msa, font = NULL, color = "Chemistry_NT")
 }
