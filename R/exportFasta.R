@@ -12,7 +12,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' exportFasta(study_table = stable, type = "junction", names = c("junction_aa", "duplicate_count"))
 #' 

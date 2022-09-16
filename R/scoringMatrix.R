@@ -15,7 +15,7 @@
 #' identical in the two samples and 0 indicates no shared frequencies.
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' bhattacharyya_matrix <- scoringMatrix(productive_table = atable,
 #'                                       mode = "Bhattacharyya")

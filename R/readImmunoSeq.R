@@ -19,7 +19,7 @@
 #' @examples
 #' file.path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #'
-#' study_table <- readImmunoSeq(path = file.path, recursive = FALSE)
+#' study_table <- readImmunoSeq(path = file.path, recursive = FALSE, threads = 1)
 #'
 #' @export
 #' @import magrittr

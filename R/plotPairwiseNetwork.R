@@ -9,7 +9,7 @@
 #' @examples
 #' 
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- LymphoSeq2::readImmunoSeq(path = file_path)
+#' stable <- LymphoSeq2::readImmunoSeq(path = file_path, threads = 1)
 #' atable <- LymphoSeq2::productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' matrix <- LymphoSeq2::scoringMatrix(atable, mode = "Similarity")
 #' network_graph <- LymphoSeq2::pairwiseNetwork(matrix)
