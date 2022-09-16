@@ -42,7 +42,7 @@ junction CDR3 sequences in a list of data frames.
 \examples{
 file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 
 ntable <- productiveSeq(study_table = stable, aggregate = "junction")
 

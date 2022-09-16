@@ -36,7 +36,7 @@ library(magrittr)
 
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 
 repertoire_ids <- stable \%>\% dplyr::pull(repertoire_id) \%>\% unique()
 

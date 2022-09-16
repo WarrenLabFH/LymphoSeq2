@@ -35,7 +35,7 @@ the sequences differ by a single amino acid or junction.
 \examples{
 file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, , threads = 1)
 
 clonal_relatedness <- clonalRelatedness(stable, editDistance = 10)
 

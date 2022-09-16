@@ -23,7 +23,7 @@ Aggregates all productive sequences within a list of data frames by duplicate_co
 }
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 unique_seqs <- uniqueSeqs(productive_table = atable, unique_type = "junction_aa")
 }

@@ -55,7 +55,7 @@ the sequences different by a single amino acid or junction.
 \examples{
 file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 
 ntable <- productiveSeq(stable, aggregate = "junction")
 

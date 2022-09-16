@@ -51,7 +51,7 @@ two samples and reports the log2 transformed fold change, P value and adjusted P
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 
 atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 

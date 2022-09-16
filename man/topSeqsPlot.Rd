@@ -26,7 +26,7 @@ using ggplot2 functions.  See examples below.
 }
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 topSeqsPlot(study_table = atable, top = 10)
 # Display the number of sequences at the top of bar plot and add a title
