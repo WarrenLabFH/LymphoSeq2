@@ -82,7 +82,7 @@ phyloTree <- function(study_table, repertoire_ids, type = "junction", layout = "
             j_family = stringr::str_replace_na(j_family, "UNR"),
             gene_families = paste(v_family, d_family, j_family)) %>%
         dplyr::pull(gene_families)
-    tree_annotation <- tibble::tibble(names = names, 
+    tree_annotation <- dplyr::tibble(names = names, 
         duplicate_count = sample_table$duplicate_count, 
         geneFamilies = geneFamilies, 
         junction_aa = sample_table$junction_aa,

@@ -42,7 +42,7 @@ searchDB <- function(study_table) {
 #' @export
 #' @import magrittr httr jsonlite
 searchIreceptor <- function(...) {
-    sequence_row <- tibble::tibble(...)
+    sequence_row <- dplyr::tibble(...)
     path <- "https://ipa1.ireceptor.org/v2/sequences_summary?"
     request <- GET(url=path,
                query= list(username="shashi_ravishankar",
@@ -50,7 +50,7 @@ searchIreceptor <- function(...) {
     response_list <- content(request, as = "text", encoding = "UTF-8") %>%
                      jsonlite::fromJSON(flatten = TRUE)
      if (length(response_list$summary) == 0) {
-        response_table <- tibble::tibble(count = NA,
+        response_table <- dplyr::tibble(count = NA,
                                  disease_diagnosis = NA,
                                  pub_ids = NA,
                                  disease_state_sample = NA,

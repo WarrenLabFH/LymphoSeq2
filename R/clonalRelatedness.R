@@ -64,6 +64,6 @@ getRelatedness <- function(sample_table, editDistance=10) {
     seq_distance <- stringdist::stringdist(top_seq, sample_table$junction)
     related_seq <- seq_distance[seq_distance <= editDistance]
     relatedness <- base::length(related_seq)/base::nrow(sample_table)
-    related_tbl <- tibble::tibble(repertoire_id=repertoire_id, clonalRelatedness=relatedness)
+    related_tbl <- dplyr::tibble(repertoire_id=repertoire_id, clonalRelatedness=relatedness)
     return(related_tbl)
 }

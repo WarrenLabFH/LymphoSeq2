@@ -82,7 +82,7 @@ findSeq <- function(sequence, query_list, edit_distance, seq_type, match){
     edist <- utils::adist(sequence, query_list, partial = partial)
     match_list <- query_list[(edist <= edit_distance)]
     edist_list <- edist[(edist <= edit_distance)]
-    sequence_table <- tibble::tibble(c1 = match_list, 
+    sequence_table <- dplyr::tibble(c1 = match_list, 
                                      c2 = edist_list, 
                                      c3 = sequence, 
                                      .name_repair= ~ c(seq_type, "edit_distance", "searchSequence")) %>%

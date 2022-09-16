@@ -66,7 +66,7 @@ summarySeq <- function(study_table) {
         dplyr::pull(duplicate_count)
     entropy <- -base::sum(frequency * base::log2(frequency), na.rm=TRUE)
     clonality <- 1 - base::round(entropy/base::log2(base::nrow(productive)), digits = 6)
-    study_summary <- tibble::tibble(repertoire_id = study_table$repertoire_id[1], 
+    study_summary <- dplyr::tibble(repertoire_id = study_table$repertoire_id[1], 
         total_sequences = base::nrow(study_table), 
         unique_productive_sequences = base::nrow(productive),
         total_count = base::sum(study_table$duplicate_count), 

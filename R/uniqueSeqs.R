@@ -18,7 +18,7 @@
 #' @import magrittr
 uniqueSeqs <- function(productive_table = productive_table, unique_type = "junction_aa") {
     # Add checks to see if the tibble is a prudctive table
-    unique_seq <- tibble::tibble()
+    unique_seq <- dplyr::tibble()
     if (unique_type == "junction") {
         unique_seq <- productive_table %>% 
                       dplyr::group_by(junction) %>% 
