@@ -68,7 +68,7 @@ calculateCounts <- function(study_table, k) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #'
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #'
 #' kmer_table <- countKmer(study_table = stable, k = 5, separate = TRUE)
 #' 
