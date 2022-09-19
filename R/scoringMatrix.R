@@ -87,7 +87,7 @@ scoringMatrix <- function(productive_table, mode="Bhattacharyya") {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #'
@@ -124,7 +124,7 @@ bhattacharyyaCoefficient <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' 
@@ -165,7 +165,7 @@ similarityScore <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #'
@@ -213,7 +213,7 @@ sorensenIndex <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' 

@@ -2,7 +2,7 @@ context("Read GLIPH Files")
 library(LymphoSeq2)
 
 test_that("Reads a GLIPH files correctly", {
-  gtable <- LymphoSeq2::readGliph(path = "test_data/gliph")
+  gtable <- LymphoSeq2::readGliph("test_data/gliph")
   nsample <- gtable %>%
              dplyr::pull(repertoire_id) %>%
              base::unique() %>% 
