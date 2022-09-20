@@ -109,7 +109,7 @@ If you are interested in just the complementarity determining region 3 (CDR3) am
 ```{r readAmino}
 aa_table <- LymphoSeq2::productiveSeq(study_table = study_table, aggregate = "junction_aa", 
                           prevalence = FALSE)
-  aa_table
+aa_table
 ```
 
 Alternatively you can aggregate by `junction` to group sequences by CDR3 nucleotide sequences. This option will produce a tibble similar to the output of `readImmunoSeq`. Many of the functions within LymphoSeq2 use the results from `productiveSeq` function. Please be sure to check the function documentation.

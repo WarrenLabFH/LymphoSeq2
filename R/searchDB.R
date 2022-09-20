@@ -14,7 +14,7 @@
 #' @examples
 #' file.path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #'
-#' study_table <- readImmunoSeq(path = file.path)
+#' study_table <- readImmunoSeq(path = file.path, threads = 1)
 #'
 #' productive_aa <- productiveSeq(study_table = study_table, aggregate = "junction_aa")
 #'

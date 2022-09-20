@@ -40,6 +40,13 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+      - name: Configure Pagefile
+        uses: al-cheb/configure-pagefile-action@v1.2
+        with:
+          minimum-size: 8GB
+          maximum-size: 8GB
+          disk-root: "C:"
+          
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-pandoc@v2
