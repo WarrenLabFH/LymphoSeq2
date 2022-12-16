@@ -142,6 +142,7 @@ getStandard <- function(clone_file, progress, threads) {
             sequence_aa = dplyr::if_else(is.na(sequence_aa) & !is.na(junction_aa), junction_aa, sequence_aa),
             junction = dplyr::if_else(stringr::str_detect(junction, "[a-z]+"), toupper(stringr::str_extract(junction, "[a-z]{2,}")), junction),
             junction_aa = dplyr::if_else(stringr::str_detect(junction_aa, "[a-z]+"), toupper(stringr::str_extract(junction_aa, "[a-z]{2,}")), junction_aa),
+            sequence_aa = dplyr::if_else(stringr::str_detect(sequence_aa, "[a-z]+"), toupper(stringr::str_extract(sequence_aa, "[a-z]{2,}")), sequence_aa),
             junction_length = stringr::str_length(junction),
             junction_aa_length = stringr::str_length(junction_aa),
             # resolves immunoSEQ note #2
