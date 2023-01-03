@@ -12,7 +12,7 @@ Depends: R (>= 4.1.0), data.table
 Imports: Biostrings,
          circlize,
          ggalluvial,
-         ggtree,
+         ggtree (== 3.3.1),
          grid,
          ineq,
          iNEXT,
