@@ -60,7 +60,8 @@ biocViews: Software,
            msa, 
            ggmsa,
            vegan,
-           phyloseq
+           phyloseq,
+           ggtree
 NeedsCompilation: no
 URL: https://github.com/elulu3/LymphoSeq2,
     https://elulu3.github.io/LymphoSeq2
