@@ -12,7 +12,6 @@ Depends: R (>= 4.1.0), data.table
 Imports: Biostrings,
          circlize,
          ggalluvial,
-         ggtree (== 3.3.1),
          grid,
          ineq,
          iNEXT,
@@ -50,7 +49,8 @@ Suggests: phyloseq,
           knitr,
           rmarkdown,
           testthat,
-          wordcloud
+          wordcloud,
+          ggtree
 biocViews: Software, 
            Technology, 
            Sequencing, 
@@ -60,8 +60,7 @@ biocViews: Software,
            msa, 
            ggmsa,
            vegan,
-           phyloseq,
-           ggtree
+           phyloseq
 NeedsCompilation: no
 URL: https://github.com/elulu3/LymphoSeq2,
     https://elulu3.github.io/LymphoSeq2
