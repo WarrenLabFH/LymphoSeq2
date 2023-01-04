@@ -124,17 +124,9 @@ If the parameter prevalence is set to TRUE, then a new column is added to each o
 
 Notice in the example below that there are no amino acid sequences given in the first and fourth row of the study_table table for sample “TRB_Unsorted_949”. This is because the nucleotide sequence is out of frame and does not produce a productively transcribed amino acid sequence. If an asterisk (*) appears in the amino acid sequences, this would indicate an early stop codon.
 
-```{r showUnprod}
-study_table %>% 
-dplyr::filter(repertoire_id == "TRB_Unsorted_0") 
-```
 
 After `productiveSeq` is run, the unproductive sequences are removed and the `duplicate_frequency` is recalculated for each sequence. If there were two identical amino acid sequences that differed in their nucleotide sequence, they would be combined and their counts added together.
 
-```{r showProdAA}
-aa_table %>% 
-dplyr::filter(repertoire_id == "TRB_Unsorted_0")
-```
 # Create a table of summary statistics
 
 To create a table summarizing the total number of sequences, number of unique productive sequences, number of genomes, clonality, Gini coefficient, and the frequency (%) of the top productive sequence, Simpson index, Inverse Simpson index, Hill diversity index, Chao1 index and Kemp index in each imported file, use the function `clonality`.
@@ -356,46 +348,8 @@ LymphoSeq2::chordDiagramVDJ(study_table = top_seqs,
 
 You can also visualize the results of `geneFreq` as a heat map, word cloud, our cumulative frequency bar plot with the support of additional R packages as shown below.
 
-```{r wordcloud}
-vGenes <- LymphoSeq2::geneFreq(productive_nt = nuc_table, locus = "V", family = TRUE)
-library(RColorBrewer)
-library(grDevices)
-RedBlue <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(11, "RdBu")))(256)
-library(wordcloud)
-vtable <- vGenes %>% dplyr::filter(repertoire_id == "TRB_Unsorted_83")
-wordcloud::wordcloud(words = vtable$gene_name, 
-                     freq = vtable$gene_frequency, 
-                     colors = RedBlue)
-```
 
-```{r heatmap}
-vGenes <- LymphoSeq2::geneFreq(nuc_table, locus = "V", family = TRUE) %>% 
-           tidyr::pivot_wider(id_cols = gene_name, 
-                              names_from = repertoire_id, 
-                              values_from = gene_frequency, 
-                              values_fn = sum,
-                              values_fill = 0)
-gene_names <- vGenes %>% 
-              dplyr::pull(gene_name)
-vGenes <- vGenes %>% 
-          dplyr::select(-gene_name) %>% 
-          as.matrix()
-rownames(vGenes) <- gene_names
-pheatmap::pheatmap(vGenes, scale = "row")
-```
 
-```{r geneFreqPlot}
-vGenes <- LymphoSeq2::geneFreq(productive_nt = nuc_table, locus = "V", family = TRUE)
-multicolors <- grDevices::colorRampPalette(rev(RColorBrewer::brewer.pal(9, "Set1")))(28)
-ggplot2::ggplot(vGenes, aes(x = repertoire_id, y = gene_frequency, fill = gene_name)) +
-  ggplot2::geom_bar(stat = "identity") +
-  ggplot2::theme_minimal() + 
-  ggplot2::scale_y_continuous(expand = c(0, 0)) + 
-  ggplot2::guides(fill = guide_legend(ncol = 2)) +
-  ggplot2::scale_fill_manual(values = multicolors) + 
-  ggplot2::labs(y = "Frequency (%)", x = "", fill = "") +
-  ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-```
 
 # Removing sequences
 
