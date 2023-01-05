@@ -27,9 +27,9 @@ using ggplot2 functions.
 }
 \section{Functions}{
 \itemize{
-\item \code{highlightPlot()}: Highligh a specific amino acid sequence
-
+\item \code{highlightPlot}: Highligh a specific amino acid sequence
 }}
+
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 stable <- LymphoSeq2::readImmunoSeq(path = file_path, threads = 1)
