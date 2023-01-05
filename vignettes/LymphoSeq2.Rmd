@@ -312,38 +312,17 @@ LymphoSeq2::plotTrack(ctable)
 
 You can track particular sequences across samples by providing an optional list of CDR3 amino acid sequences.
 
-```{r plotCloneSet}
-ttable <- LymphoSeq2::topSeqs(aa_table, top = 10)
-ctable <- LymphoSeq2::cloneTrack(ttable)
-LymphoSeq2::plotTrack(ctable, alist = c("CASSESAGSTGELFF", "CASSLAGDSQETQYF")) + theme(legend.position = "bottom")
-```
 
 Alternatively you can use the function `plotTrackSingular` to retrieve a list of alluvial diagrams each tracking one single amino acid from the clone track table. Considering that a plot is generated for each unique CDR3 sequence, we recommend running this feature on a clone track table derived from only the top sequences from each repertoire as described in the example above.
 
-```{r plotSingular}
-lalluvial <- LymphoSeq2::plotTrackSingular(ctable)
-lalluvial[[1]]
-```
 
 
 # Comparing V(D)J gene usage
 
 To compare the V, D, and J gene usage across samples, start by creating a data frame of V, D, and J gene counts and frequencies using the function `geneFreq`. You can specify if you are interested in the “VDJ”, “DJ”, “VJ”, “DJ”, “V”, “D”, or “J” loci using the locus parameter. Set family to TRUE if you prefer the family names instead of the gene names as reported by ImmunoSeq.
 
-```{r geneFreq}
-vGenes <- LymphoSeq2::geneFreq(productive_nt = nuc_table, locus = "V", family = TRUE)
-vGenes
-```
-
 
 To create a chord diagram showing VJ or DJ gene associations from one or more more samples, combine the output of `geneFreq` with the function `chordDiagramVDJ`. This function works well the `topSeqs` function that creates a data frame of a selected number of top productive sequences. In the example below, a chord diagram is made showing the association between V and J genes of just the single dominant clones in each sample. The size of the ribbons connecting VJ genes correspond to the number of samples that have that recombination event. The thicker the ribbon, the higher the frequency of the recombination.
-
-```{r chordDiagram}
-top_seqs <- LymphoSeq2::topSeqs(productive_table = nuc_table, top = 1)
-LymphoSeq2::chordDiagramVDJ(study_table = top_seqs, 
-                            association = "VJ", 
-                            colors = c("darkred", "navyblue"))
-```
 
 
 You can also visualize the results of `geneFreq` as a heat map, word cloud, our cumulative frequency bar plot with the support of additional R packages as shown below.
@@ -355,22 +334,10 @@ You can also visualize the results of `geneFreq` as a heat map, word cloud, our 
 
 Occasionally you may identify one or more sequences in your data set that appear to be contamination. You can remove an amino acid sequence from all data frames using the function removeSeq and recompute `frequencyCount` for all remaining sequences.
 
-```{r searchSequences}
-LymphoSeq2::searchSeq(study_table = aa_table, sequence = "CASSESAGSTGELFF", seq_type = "junction_aa")
-```
-
-```{r removeSeq}
-cleansed <- LymphoSeq2::removeSeq(study_table = aa_table, sequence = "CASSESAGSTGELFF")
-LymphoSeq2::searchSeq(study_table = cleansed, sequence = "CASSESAGSTGELFF", seq_type = "junction_aa")
-```
 
 # Rarefaction curves
 
 Rarefaction and extrapolation curves allow for comparison of TCR diversity across repertoires given a ideal sequencing depth. Rarefaction and extrapolation curves are drawn by sampling a sequencing dataset to various depths to understand the trajectory of sequence diversity and then extrapolating the curve to an ideal depth.
-
-```{r rarefation}
-LymphoSeq2::plotRarefactionCurve(study_table = aa_table)
-```
 
 
 # Session info
