@@ -35,6 +35,7 @@ searchDB <- function(study_table) {
 #' Search for published T cell receptor beta CDR3 amino acid sequences with
 #' known antigen specificity in a list of data frames.
 #'
+#' @inheritDotParams searchIreceptor
 #' @return Returns a tibble of with sample name and instance in the sample
 #' that the published TCR sequence appeared along with additional
 #' information including disease status, sample type, and PubMed ID

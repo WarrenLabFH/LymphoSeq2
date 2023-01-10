@@ -33,7 +33,7 @@ read10x <- function(clone_data) {
 
 #' Select the most frequent chain
 #' 
-#' [description]
+#' Selects most frequent chain
 #' 
 #' @param barcode_data A tibble that holds data for one barcode
 #' identifier

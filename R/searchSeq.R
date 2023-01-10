@@ -72,7 +72,18 @@ searchSeq <- function(study_table, sequence, seq_type = "junction", edit_distanc
 #'
 #' @describeIn searchSeq Find all sequences below edit distance threshold from query list
 #'
-#' @inheritParams searchSeq
+#' @param sequence A character vector of one ore more amino acid or junction 
+#' CDR3 sequences to search.
+#' @param query_list List of sequences to query.
+#' @param edit_distance An integer giving the minimum edit distance that the 
+#' sequence must be less than or equal to.  See details below.
+#' @param seq_type A character vector specifying the type of sequence(s) to be 
+#' searched.  Available options are "junction_aa" or "junction". 
+#' @param match A string indicating the type of sequence matching to perform. 
+#' Acceptable values are "global" and "partial". See details below.
+#' @details An exact partial match means the searched sequence is contained within 
+#' target sequence.  An exact global match means the searched sequence is identical to 
+#' the target sequence.
 findSeq <- function(sequence, query_list, edit_distance, seq_type, match){
     if (match == "global") {
         partial = FALSE

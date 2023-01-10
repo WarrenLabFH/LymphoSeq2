@@ -14,14 +14,11 @@ data imported by the LymphoSeq2 function readImmunoSeq. "junction_aa",
 \description{
 Given a study table, for each sample plot rarefaction curves to estimate
 repertoire diversity. The method used to generate the rarefaction curve
-is derived from Chao et al., (2014) using the iNEXT library
+is from the vegan library.
 }
 \examples{
 file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 stable <- readImmunoSeq(path = file_path, threads = 1)
 plotRarefactionCurve(stable)
 
-}
-\seealso{
-\code{\link{runINext}}
 }

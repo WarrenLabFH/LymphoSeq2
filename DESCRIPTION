@@ -15,7 +15,6 @@ Imports: Biostrings,
          ggtree (>= 3.7.1),
          grid,
          ineq,
-         iNEXT,
          msa,
          ggmsa,
          purrr,
@@ -27,27 +26,30 @@ Imports: Biostrings,
          UpSetR,
          utils,
          VennDiagram, 
-         tidyverse,
-         pheatmap,
          httr,
          ggplot2,
          jsonlite,
-         reshape,
          vegan,
          dplyr,
          stringr,
          progress,
          dtplyr,
          igraph,
-         vroom
+         vroom,
+         readr,
+         tidyr,
+         tibble
 License: Artistic-2.0
 LazyData: true
+LazyDataCompression:xz
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Suggests: phyloseq,
           knitr,
+          pheatmap,
+          reshape,
           rmarkdown,
           testthat,
           wordcloud

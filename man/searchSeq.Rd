@@ -31,6 +31,8 @@ sequence must be less than or equal to.  See details below.}
 
 \item{match}{A string indicating the type of sequence matching to perform.
 Acceptable values are "global" and "partial". See details below.}
+
+\item{query_list}{List of sequences to query.}
 }
 \value{
 Returns the rows for every instance in the list of data frames where
@@ -49,6 +51,10 @@ are to one another by counting the minimum number of operations required to
 transform one sequence into the other.  For example, an edit distance of 0
 means the sequences are identical and an edit distance of 1 indicates that
 the sequences different by a single amino acid or junction.
+
+An exact partial match means the searched sequence is contained within
+target sequence.  An exact global match means the searched sequence is identical to
+the target sequence.
 }
 \section{Functions}{
 \itemize{

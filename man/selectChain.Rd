@@ -22,5 +22,5 @@ A tibble with one row of data that contains the most
 frequently occuring chain.
 }
 \description{
-\link{description}
+Selects most frequent chain
 }
