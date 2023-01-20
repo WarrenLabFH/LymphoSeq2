@@ -26,12 +26,15 @@
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' 
-#' differentialAbundance(study_table = atable, repertoire_ids = c("TRB_Unsorted_949", "TRB_Unsorted_1320"), 
-#'                       type = "junction_aa", q = 0.01, zero = 0.001)
+#' differentialAbundance(study_table = atable,
+#'                       repertoire_ids = c("TRB_Unsorted_949", "TRB_Unsorted_1320"),
+#'                       type = "junction_aa",
+#'                       q = 0.01,
+#'                       zero = 0.001)
 #' @export
 #' @import magrittr
 differentialAbundance <- function(study_table, repertoire_ids = NULL, 
@@ -58,7 +61,17 @@ differentialAbundance <- function(study_table, repertoire_ids = NULL,
             !!base::as.name(repertoire_ids[2]), p, q, l2fc)
     return(fisher_table)
 }
+
+
+#' Calculates
 #' 
+#' Calculates fisher test, p, and logorithm values
+#' 
+#' @param x duplicate count of first repertoire_id
+#' @param y duplicate count of second repertoire_id
+#' @param not_x duplicate count of values not equal to first repertoire_id
+#' @param not_y duplicate count of values not equal to second repertoire_id
+#' @return list of calculated values
 #' @export
 fisherFunction <- function(x, y, not_x, not_y) {
     matrix <- matrix(c(x, y, not_x, not_y), nrow = 2)

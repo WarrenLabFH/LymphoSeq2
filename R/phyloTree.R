@@ -20,28 +20,33 @@
 #' documentation for details on how to manipulate the tree.
 #' @examples
 #' file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
-#' 
-#' stable <- readImmunoSeq(path = file_path)
-#' 
+#'
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
+#'
 #' ntable <- productiveSeq(study_table = stable, aggregate = "junction")
-#' 
+#'
 #' phyloTree(study_table = ntable, repertoire_ids = "IGH_MVQ92552A_BL", type = "junction", 
 #'          layout = "rectangular")
-#' 
+#'
 #' phyloTree(study_table = ntable, repertoire_ids = "IGH_MVQ92552A_BL", type = "junction_aa", 
 #'          layout = "circular")
-#'          
+#'
 #' # Add scale and title to figure
-#' phyloTree(study_table = ntable, repertoire_ids = "IGH_MVQ92552A_BL", type = "junction_aa", 
-#'          layout = "rectangular") +
-#'          ggtree::theme_tree2() +
-#'          ggplot2::theme(legend.position = "right", legend.key = ggplot2::element_rect(colour = "white")) +
-#'          ggplot2::ggtitle("Title")
-#'          
+#' phyloTree(study_table = ntable,
+#'           repertoire_ids = "IGH_MVQ92552A_BL",
+#'           type = "junction_aa",
+#'           layout = "rectangular") +
+#'  ggtree::theme_tree2() +
+#'  ggplot2::theme(legend.position = "right",
+#'                 legend.key = ggplot2::element_rect(colour = "white")) +
+#'  ggplot2::ggtitle("Title")
+#'
 #' # Hide legend and leaf labels
-#' phyloTree(study_table = ntable, repertoire_ids = "IGH_MVQ92552A_BL", type = "junction", 
-#'          layout = "rectangular", label = FALSE) +
-#'          ggplot2::theme(legend.position="none")
+#' phyloTree(study_table = ntable,
+#'           repertoire_ids = "IGH_MVQ92552A_BL",
+#'           type = "junction",
+#'           layout = "rectangular", label = FALSE) +
+#'  ggplot2::theme(legend.position="none")
 #' @importFrom ggtree "%<+%"
 #' @export
 phyloTree <- function(study_table, repertoire_ids, type = "junction", layout = "rectangular", label = TRUE) {
@@ -77,7 +82,7 @@ phyloTree <- function(study_table, repertoire_ids, type = "junction", layout = "
             j_family = stringr::str_replace_na(j_family, "UNR"),
             gene_families = paste(v_family, d_family, j_family)) %>%
         dplyr::pull(gene_families)
-    tree_annotation <- tibble(names = names, 
+    tree_annotation <- dplyr::tibble(names = names, 
         duplicate_count = sample_table$duplicate_count, 
         geneFamilies = geneFamilies, 
         junction_aa = sample_table$junction_aa,

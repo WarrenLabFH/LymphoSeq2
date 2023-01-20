@@ -33,7 +33,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, , threads = 1)
 #' 
 #' clonality(stable)
 #' @seealso \code{\link{lorenzCurve}}
@@ -51,7 +51,7 @@ clonality <- function(study_table) {
 
 #' Get summary statistics for each repertoire_id in the analysis
 #'
-#' @param sample_table immune repertoire tibble for each a repertoire_id
+#' @param study_table immune repertoire tibble for each a repertoire_id
 #'
 #' @return Tibble summarizing the sequence information for each repertoire_id
 #'
@@ -66,7 +66,7 @@ summarySeq <- function(study_table) {
         dplyr::pull(duplicate_count)
     entropy <- -base::sum(frequency * base::log2(frequency), na.rm=TRUE)
     clonality <- 1 - base::round(entropy/base::log2(base::nrow(productive)), digits = 6)
-    study_summary <- tibble::tibble(repertoire_id = study_table$repertoire_id[1], 
+    study_summary <- dplyr::tibble(repertoire_id = study_table$repertoire_id[1], 
         total_sequences = base::nrow(study_table), 
         unique_productive_sequences = base::nrow(productive),
         total_count = base::sum(study_table$duplicate_count), 

@@ -25,8 +25,8 @@ genes.}
 \item{prevalence}{A Boolean value indicating if a new column should be added
 to each of the data frames giving the prevalence of each CDR3 amino acid
 sequence in 55 healthy donor peripheral blood samples.  TRUE means the column
-is added and FALSE means it is not.  Values range from 0 to 100\\% where
-100\\% means the sequence appeared in the blood of all 55 individuals.}
+is added and FALSE means it is not.  Values range from 0 to 100\% where
+100\% means the sequence appeared in the blood of all 55 individuals.}
 
 \item{progress_bar}{Progress progress bar}
 }

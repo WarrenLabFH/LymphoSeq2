@@ -13,16 +13,17 @@
 #' @seealso \code{\link{chordDiagramVDJ}}
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' top_seqs <- topSeqs(productive_table = atable, top = 1)
 #' @export
-#' @import magrittr dtplyr
+#' @import magrittr
 topSeqs <- function(productive_table, top = 1) {
     top_seqs <- productive_table %>%
-                dtplyr::lazy_dt() %>%
+                dtplyr::lazy_dt()
+    top_seqs <- top_seqs %>%
                 dplyr::group_by(repertoire_id) %>%
-                dplyr::arrange(desc(duplicate_frequency)) %>%
+                dplyr::arrange(dplyr::desc(duplicate_frequency)) %>%
                 dplyr::slice_head(n = top) %>%
                 dplyr::as_tibble()
     return(top_seqs)

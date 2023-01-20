@@ -9,6 +9,17 @@ on:
 name: R-CMD-check
 
 jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger workflow in docker-sc-tools
+        run: |
+          curl -X POST https://api.github.com/repos/shashidhar22/docker-sc-tools/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.ACCESS_TOKEN }} \
+          --data '{"event_type": "LymphoSeq2_update", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+          
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
@@ -29,18 +40,28 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
+#       - name: Configure Pagefile
+#         uses: al-cheb/configure-pagefile-action@v1.2
+#         with:
+#           minimum-size: 8GB
+#           maximum-size: 8GB
+#           disk-root: "C:"
+          
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck
+          extra-packages: any::rcmdcheck
+          needs: check
 
-      - uses: r-lib/actions/check-r-package@v1
+      - uses: r-lib/actions/check-r-package@v2
+        # with:
+        #   upload-snapshots: true

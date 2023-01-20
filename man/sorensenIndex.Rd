@@ -7,11 +7,10 @@
 sorensenIndex(sample_list)
 }
 \arguments{
-\item{sample1}{A data frame consisting of frequencies of antigen receptor
-sequences.  "junction_aa" and "duplicate_count" are a required columns.}
-
-\item{sample2}{A data frame consisting of frequencies of antigen receptor
-sequences.  "junction_aa" and "duplicate_count" are a required columns.}
+\item{sample_list}{A list of two tibbles consisting of frequencies of
+antigen receptor sequences derived from the productiveSeq function
+in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+are required columns.}
 }
 \value{
 Returns the similarity score, a measure of the amount of
@@ -23,6 +22,14 @@ indicates no shared frequencies.
 Calculates the Sorensen index between two groups of repertoires. Similar to
 a Jaccard index, Sorensen index gives a greater weight to shared sequences
 over unique sequences.
+}
+\examples{
+file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
+
+stable <- readImmunoSeq(path = file_path, threads = 1)
+
+atable <- productiveSeq(stable, aggregate = "junction_aa")
+
 }
 \seealso{
 \code{\link{scoringMatrix}}

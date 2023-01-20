@@ -7,7 +7,7 @@
 summarySeq(study_table)
 }
 \arguments{
-\item{sample_table}{immune repertoire tibble for each a repertoire_id}
+\item{study_table}{immune repertoire tibble for each a repertoire_id}
 }
 \value{
 Tibble summarizing the sequence information for each repertoire_id

@@ -21,10 +21,11 @@
 #' literature. 
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' top_freq <- topFreq(productive_table = atable, frequency = 0.1)
 #' @export
+#' @import magrittr
 topFreq <- function(productive_table, frequency = 0.1) {
     productive_table <- productive_table
     top_freq <- productive_table %>%
@@ -34,7 +35,7 @@ topFreq <- function(productive_table, frequency = 0.1) {
                                  maxFrequency = max(duplicate_frequency),
                                  meanFrequency = mean(duplicate_frequency),
                                  numberSamples = length(duplicate_frequency > 0)) %>%
-                dplyr::arrange(desc(numberSamples), desc(meanFrequency))
+                dplyr::arrange(dplyr::desc(numberSamples), dplyr::desc(meanFrequency))
     
     top_freq <- dplyr::left_join(top_freq, LymphoSeq2::prevalenceTRB, by=c("junction_aa" = "aminoAcid")) %>% 
                 dplyr::mutate(prevalence = tidyr::replace_na(0))

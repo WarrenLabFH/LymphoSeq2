@@ -8,7 +8,7 @@ uniqueSeqs(productive_table = productive_table, unique_type = "junction_aa")
 }
 \arguments{
 \item{productive_table}{A tibble of productive amino acid sequences
-imported using the function LymphoSeq function productiveSeq where the
+imported using the function LymphoSeq2 function productiveSeq where the
 aggregate parameter was set to "junction_aa".}
 
 \item{unique_type}{Use "junction_aa" to aggregate by amino acid sequences.
@@ -20,4 +20,10 @@ data frames aggregated by duplicate_count.
 }
 \description{
 Aggregates all productive sequences within a list of data frames by duplicate_count.
+}
+\examples{
+file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
+stable <- readImmunoSeq(path = file_path, threads = 1)
+atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
+unique_seqs <- uniqueSeqs(productive_table = atable, unique_type = "junction_aa")
 }

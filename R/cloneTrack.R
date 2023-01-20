@@ -20,7 +20,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, , threads = 1)
 #' 
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' 
@@ -63,6 +63,9 @@ cloneTrack <- function(study_table, sample_list = NULL, sequence_track = NULL) {
 		dplyr::group_by(junction_aa) %>%
 		dplyr::mutate(seen = dplyr::n()) %>%
 		dplyr::ungroup() %>%
-		dplyr::as_tibble()
+		dplyr::as_tibble() %>%
+		dplyr::left_join(dplyr::tibble(repertoire_id = sample_list),
+						 ., by = "repertoire_id")
+
 	return(tracker_table)
 }

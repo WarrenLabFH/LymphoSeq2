@@ -7,8 +7,8 @@
 topSeqsPlot(study_table, top = 10)
 }
 \arguments{
-\item{study_table}{A study tibble imported using the LymphoSeq function readImmunoSeq
-or productiveSeq.}
+\item{study_table}{A study tibble imported using the LymphoSeq2 function
+readImmunoSeq or productiveSeq.}
 
 \item{top}{The number of top sequences to be colored in the bar plot.  All
 other, less frequent sequences are colored violet.}
@@ -23,6 +23,18 @@ sequences.
 \details{
 The plot is made using the package ggplot2 and can be reformatted
 using ggplot2 functions.  See examples below.
+}
+\examples{
+file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
+stable <- readImmunoSeq(path = file_path, threads = 1)
+atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
+topSeqsPlot(study_table = atable, top = 10)
+# Display the number of sequences at the top of bar plot and add a title
+n <- as.character(nrow(stable))
+topSeqsPlot(study_table = atable, top = 10) +
+ggplot2::annotate("text", x = 1:length(n), y = 105, label = n, color = "black") +
+ggplot2::expand_limits(y = c(0, 110)) + ggplot2::ggtitle("Figure Title") +
+ggplot2::scale_x_discrete(limits = names(n))
 }
 \seealso{
 An excellent resource for examples on how to reformat a ggplot can

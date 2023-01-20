@@ -11,23 +11,24 @@
 #' data frames aggregated by duplicate_count.
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' unique_seqs <- uniqueSeqs(productive_table = atable, unique_type = "junction_aa")
 #' @export
+#' @import magrittr
 uniqueSeqs <- function(productive_table = productive_table, unique_type = "junction_aa") {
     # Add checks to see if the tibble is a prudctive table
-    unique_seq <- tibble::tibble()
+    unique_seq <- dplyr::tibble()
     if (unique_type == "junction") {
         unique_seq <- productive_table %>% 
                       dplyr::group_by(junction) %>% 
                       dplyr::summarize(duplicate_count = sum(duplicate_count)) %>% 
-                      dplyr::arrange(desc(duplicate_count))
+                      dplyr::arrange(dplyr::desc(duplicate_count))
     } else if (unique_type == "junction_aa") {
         unique_seq <- productive_table %>% 
                       dplyr::group_by(junction_aa) %>% 
                       dplyr::summarize(duplicate_count = sum(duplicate_count)) %>% 
-                      dplyr::arrange(desc(duplicate_count))
+                      dplyr::arrange(dplyr::desc(duplicate_count))
     }
     return(unique_seq)
 }

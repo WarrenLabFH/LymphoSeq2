@@ -7,7 +7,7 @@
 #' 
 #' @param study_table A tibble consisting of antigen receptor sequences 
 #' imported by the LymphoSeq function readImmunoSeq.
-#' @param repertoire_id A character vector indicating the name of the repertoire_id in the productive
+#' @param repertoire_ids A character vector indicating the name of the repertoire_id in the productive
 #' sequence list. 
 #' @param sequence_list A character vector of one ore more amino acid or junction 
 #' CDR3 sequences to search.
@@ -31,7 +31,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' ntable <- productiveSeq(stable, aggregate = "junction")
 #' 
@@ -134,5 +134,3 @@ alignSeq <- function(study_table, repertoire_ids = NULL,
     alignment <- msa::msa(string_list, method = method)
     return(alignment)
 }
-
-

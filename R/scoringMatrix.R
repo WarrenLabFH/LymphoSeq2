@@ -15,7 +15,7 @@
 #' identical in the two samples and 0 indicates no shared frequencies.
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' bhattacharyya_matrix <- scoringMatrix(productive_table = atable,
 #'                                       mode = "Bhattacharyya")
@@ -87,7 +87,7 @@ scoringMatrix <- function(productive_table, mode="Bhattacharyya") {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #'
@@ -104,7 +104,7 @@ bhattacharyyaCoefficient <- function(sample_list) {
                                    duplicate_frequency_q = tidyr::replace_na(duplicate_frequency_q, 0))
     s <- sample_merged$duplicate_frequency_p * sample_merged$duplicate_frequency_q
     bc <- base::sum(base::sqrt(s))
-    bhattacharyya_coefficient <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    bhattacharyya_coefficient <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                                 sample2=sample2$repertoire_id[1],
                                                 bhattacharyya_coefficient=bc)
     return(bhattacharyya_coefficient)
@@ -113,10 +113,10 @@ bhattacharyyaCoefficient <- function(sample_list) {
 #' 
 #' Calculates the similarity score of two samples.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 
@@ -124,7 +124,7 @@ bhattacharyyaCoefficient <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' 
@@ -143,7 +143,7 @@ similarityScore <- function(sample_list) {
           dplyr::summarise(total = sum(duplicate_count)) %>% 
           base::as.integer()
     score <- (s1 + s2)/ (base::sum(sample1$duplicate_count) + base::sum(sample2$duplicate_count))
-    similarity_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    similarity_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        similarityScore=score)
     return(similarity_score)
@@ -154,10 +154,10 @@ similarityScore <- function(sample_list) {
 #' a Jaccard index, Sorensen index gives a greater weight to shared sequences
 #' over unique sequences.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 
@@ -165,7 +165,7 @@ similarityScore <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #'
@@ -191,7 +191,7 @@ sorensenIndex <- function(sample_list) {
          unique() %>% 
          length()
     sorensen_index <- (2 * a)/ ((2*a) + b + c)
-    sorensen_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    sorensen_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        sorensenIndex=sorensen_index)
     return(sorensen_score)
@@ -202,10 +202,10 @@ sorensenIndex <- function(sample_list) {
 #' similarity index, not only compares the number of similar and dissimilar species 
 #' present between two sites, but also incorporate abundance.
 #' 
-#' @param sample1 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
-#' @param sample2 A data frame consisting of frequencies of antigen receptor 
-#' sequences.  "junction_aa" and "duplicate_count" are a required columns.
+#' @param sample_list A list of two tibbles consisting of frequencies of
+#' antigen receptor sequences derived from the productiveSeq function
+#' in LymphoSeq2.  "junction_aa", "duplicate_count" and 'repertoire_id'
+#' are required columns.
 #' @return Returns the similarity score, a measure of the amount of 
 #' overlap between two samples.  The value ranges from 0 to 1 where 1 indicates 
 #' the sequence frequencies are identical in the two samples and 0 
@@ -213,7 +213,7 @@ sorensenIndex <- function(sample_list) {
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' atable <- productiveSeq(stable, aggregate = "junction_aa")
 #' 
@@ -229,12 +229,12 @@ percentSI <- function(sample_list) {
                               duplicate_frequency_2 = tidyr::replace_na(duplicate_frequency_2, 0)) %>% 
                 dplyr::group_by(junction_aa, duplicate_frequency_1, duplicate_frequency_2) %>% 
                 dplyr::summarize(min_count = min(duplicate_frequency_1, duplicate_frequency_2)) %>% 
-                ungroup()
+                dplyr::ungroup()
     min_sum <- combined %>% dplyr::pull(min_count) %>% sum()
     sum_sample1 <- combined %>% dplyr::pull(duplicate_frequency_1) %>% sum()
     sum_sample2 <- combined %>% dplyr::pull(duplicate_frequency_2) %>% sum()
     percent_si <- 200 * sum(min_sum) / (sum_sample1 + sum_sample2)
-    psi_score <- tibble::tibble(sample1=sample1$repertoire_id[1], 
+    psi_score <- dplyr::tibble(sample1=sample1$repertoire_id[1], 
                                        sample2=sample2$repertoire_id[1], 
                                        percentSI=percent_si)
     return(psi_score)

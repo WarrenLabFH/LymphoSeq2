@@ -21,7 +21,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, , threads = 1)
 #' 
 #' clonal_relatedness <- clonalRelatedness(stable, editDistance = 10)
 #' 
@@ -53,17 +53,17 @@ clonalRelatedness <- function(study_table, editDistance = 10){
 #' 
 #' @export
 #' @importFrom stringdist stringdist 
-#' @import magrittr  
+#' @import magrittr
 getRelatedness <- function(sample_table, editDistance=10) {
     repertoire_id <- sample_table$repertoire_id[1]
     top_seq <- sample_table %>% 
-        dplyr::arrange(desc(duplicate_count)) %>% 
+        dplyr::arrange(dplyr::desc(duplicate_count)) %>% 
         dplyr::slice_head(n = 1) %>% 
         dplyr::select(junction) %>% 
         base::as.character()
     seq_distance <- stringdist::stringdist(top_seq, sample_table$junction)
     related_seq <- seq_distance[seq_distance <= editDistance]
     relatedness <- base::length(related_seq)/base::nrow(sample_table)
-    related_tbl <- tibble::tibble(repertoire_id=repertoire_id, clonalRelatedness=relatedness)
+    related_tbl <- dplyr::tibble(repertoire_id=repertoire_id, clonalRelatedness=relatedness)
     return(related_tbl)
 }

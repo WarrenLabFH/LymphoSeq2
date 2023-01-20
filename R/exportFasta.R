@@ -2,7 +2,7 @@
 #' 
 #' Export junction or amino acid sequences in fasta format.
 #' 
-#' @param sample_table A tibble consisting of antigen receptor sequences 
+#' @param study_table A tibble consisting of antigen receptor sequences 
 #' imported by the LymphoSeq function readImmunoSeq.
 #' @param type A character vector indicating whether "junction_aa" or "junction" sequences
 #' should be exported.  If "junction_aa" is specified, then run productiveSeqs first.
@@ -12,7 +12,7 @@
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
 #' 
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' 
 #' exportFasta(study_table = stable, type = "junction", names = c("junction_aa", "duplicate_count"))
 #' 
@@ -28,23 +28,23 @@ exportFasta <- function(study_table, type = "junction",
                         names = c("rank", "junction_aa", "duplicate_count")) {
     if (type == "junction") {
         study_table <- study_table %>% 
-            dplyr::arrange(repertoire_id, desc(duplicate_frequency)) %>% 
+            dplyr::arrange(repertoire_id, dplyr::desc(duplicate_frequency)) %>% 
             tibble::rowid_to_column() %>% 
             dplyr::mutate(sequences = junction) %>%
             tidyr::unite(fasta_name, names)
     } else if (type == "junction_aa") {
         study_table <- productiveSeq(study_table)
         study_table <- study_table %>% 
-            dplyr::arrange(repertoire_id, desc(duplicate_frequency)) %>% 
+            dplyr::arrange(repertoire_id, dplyr::desc(duplicate_frequency)) %>% 
             tibble::rowid_to_column() %>% 
             dplyr::mutate(sequences = junction_aa) %>%
             tidyr::unite(fasta_name, names) 
     }
     study_table %>% 
-    dplyr::group_by(repertoire_id) %>% 
-    dplyr::group_split() %>% 
-    purrr::map(~writeFasta(.x, type))
-    message(paste("Fasta files saved to", getwd()))
+        dplyr::group_by(repertoire_id) %>% 
+        dplyr::group_split() %>% 
+        purrr::map(~writeFasta(.x, type))
+        message(paste("Fasta files saved to", getwd()))
 }
 
 writeFasta <- function(sample_table, type) {

@@ -17,29 +17,29 @@
 #' target sequence.  An exact global match means the searched sequence is identical to 
 #' the target sequence.
 #' 
-#' Edit distance is a way of quantifying how dissimilar two sequences 
-#' are to one another by counting the minimum number of operations required to 
-#' transform one sequence into the other.  For example, an edit distance of 0 
-#' means the sequences are identical and an edit distance of 1 indicates that 
+#' Edit distance is a way of quantifying how dissimilar two sequences
+#' are to one another by counting the minimum number of operations required to
+#' transform one sequence into the other.  For example, an edit distance of 0
+#' means the sequences are identical and an edit distance of 1 indicates that
 #' the sequences different by a single amino acid or junction.
-#' @return Returns the rows for every instance in the list of data frames where 
+#' @return Returns the rows for every instance in the list of data frames where
 #' the searched sequence(s) appeared.
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' aa1 <- "CASSPVSNEQFF"
 #' aa2 <- "CASSQEVPPYQAFF"
-#' searchSeq(study_table = stable, 
-#'           sequence = aa1, 
-#'           seq_type = "junction_aa", 
+#' searchSeq(study_table = stable,
+#'           sequence = aa1,
+#'           seq_type = "junction_aa",
 #'           edit_distance = 0)
-#' searchSeq(study_table = stable, 
-#'           sequence = c(aa1, aa2), 
-#'           seq_type = "junction_aa", 
+#' searchSeq(study_table = stable,
+#'           sequence = c(aa1, aa2),
+#'           seq_type = "junction_aa",
 #'           edit_distance = 0)
-#' searchSeq(study_table = stable, 
-#'           sequence = aa1, 
-#'           seq_type = "junction_aa", 
+#' searchSeq(study_table = stable,
+#'           sequence = aa1,
+#'           seq_type = "junction_aa",
 #'           edit_distance = 1)
 #' nt <- "CTGATTCTGGAGTCCGCCAGCACCAACCAGACATCTATGTACCTCTGTGCCAGCAGTCCGGTAAGCAATGAGCAGTTCTTCGGGCCA"
 #' searchSeq(study_table = stable,
@@ -50,7 +50,7 @@
 #'           sequence = "CASSPVS",
 #'           seq_type = "junction_aa",
 #'           edit_distance = 0)
-#' searchSeq(study_table = study_table,
+#' searchSeq(study_table = stable,
 #'           sequence = nt,
 #'           seq_type = "junction",
 #'           edit_distance = 0)
@@ -69,10 +69,21 @@ searchSeq <- function(study_table, sequence, seq_type = "junction", edit_distanc
 }
 
 #' Find sequences of interest
-#' 
+#'
 #' @describeIn searchSeq Find all sequences below edit distance threshold from query list
-#' 
-#' @inheritParams searchSeq
+#'
+#' @param sequence A character vector of one ore more amino acid or junction 
+#' CDR3 sequences to search.
+#' @param query_list List of sequences to query.
+#' @param edit_distance An integer giving the minimum edit distance that the 
+#' sequence must be less than or equal to.  See details below.
+#' @param seq_type A character vector specifying the type of sequence(s) to be 
+#' searched.  Available options are "junction_aa" or "junction". 
+#' @param match A string indicating the type of sequence matching to perform. 
+#' Acceptable values are "global" and "partial". See details below.
+#' @details An exact partial match means the searched sequence is contained within 
+#' target sequence.  An exact global match means the searched sequence is identical to 
+#' the target sequence.
 findSeq <- function(sequence, query_list, edit_distance, seq_type, match){
     if (match == "global") {
         partial = FALSE
@@ -82,7 +93,7 @@ findSeq <- function(sequence, query_list, edit_distance, seq_type, match){
     edist <- utils::adist(sequence, query_list, partial = partial)
     match_list <- query_list[(edist <= edit_distance)]
     edist_list <- edist[(edist <= edit_distance)]
-    sequence_table <- tibble::tibble(c1 = match_list, 
+    sequence_table <- dplyr::tibble(c1 = match_list, 
                                      c2 = edist_list, 
                                      c3 = sequence, 
                                      .name_repair= ~ c(seq_type, "edit_distance", "searchSequence")) %>%

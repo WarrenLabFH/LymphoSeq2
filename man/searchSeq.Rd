@@ -31,6 +31,8 @@ sequence must be less than or equal to.  See details below.}
 
 \item{match}{A string indicating the type of sequence matching to perform.
 Acceptable values are "global" and "partial". See details below.}
+
+\item{query_list}{List of sequences to query.}
 }
 \value{
 Returns the rows for every instance in the list of data frames where
@@ -49,9 +51,44 @@ are to one another by counting the minimum number of operations required to
 transform one sequence into the other.  For example, an edit distance of 0
 means the sequences are identical and an edit distance of 1 indicates that
 the sequences different by a single amino acid or junction.
+
+An exact partial match means the searched sequence is contained within
+target sequence.  An exact global match means the searched sequence is identical to
+the target sequence.
 }
 \section{Functions}{
 \itemize{
 \item \code{findSeq}: Find all sequences below edit distance threshold from query list
 }}
 
+\examples{
+file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
+stable <- readImmunoSeq(path = file_path, threads = 1)
+aa1 <- "CASSPVSNEQFF"
+aa2 <- "CASSQEVPPYQAFF"
+searchSeq(study_table = stable,
+          sequence = aa1,
+          seq_type = "junction_aa",
+          edit_distance = 0)
+searchSeq(study_table = stable,
+          sequence = c(aa1, aa2),
+          seq_type = "junction_aa",
+          edit_distance = 0)
+searchSeq(study_table = stable,
+          sequence = aa1,
+          seq_type = "junction_aa",
+          edit_distance = 1)
+nt <- "CTGATTCTGGAGTCCGCCAGCACCAACCAGACATCTATGTACCTCTGTGCCAGCAGTCCGGTAAGCAATGAGCAGTTCTTCGGGCCA"
+searchSeq(study_table = stable,
+          sequence = nt,
+          seq_type = "junction",
+          edit_distance = 3)
+searchSeq(study_table = stable,
+          sequence = "CASSPVS",
+          seq_type = "junction_aa",
+          edit_distance = 0)
+searchSeq(study_table = stable,
+          sequence = nt,
+          seq_type = "junction",
+          edit_distance = 0)
+}

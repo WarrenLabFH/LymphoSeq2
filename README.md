@@ -3,5 +3,5 @@ Adaptive Immune Receptor Repertoire Sequencing (AIRR-seq) provides a unique oppo
 
 ## Installation:
 ```{r} 
-devtools::install_github("shashidhar22/LymphoSeq2", build_vignette=TRUE)
+devtools::install_github("elulu3/LymphoSeq2", build_vignette=FALSE)
 ```

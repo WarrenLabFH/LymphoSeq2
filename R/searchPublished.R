@@ -15,7 +15,7 @@
 #' that should be loaded automatically.
 #' @examples
 #' file_path <- system.file("extdata", "TCRB_sequencing", package = "LymphoSeq2")
-#' stable <- readImmunoSeq(path = file_path)
+#' stable <- readImmunoSeq(path = file_path, threads = 1)
 #' atable <- productiveSeq(study_table = stable, aggregate = "junction_aa")
 #' searchPublished(atable)
 #' @seealso Refer to the LymphoSeqDB package for details regarding the 

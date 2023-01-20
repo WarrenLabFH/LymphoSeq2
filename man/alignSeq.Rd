@@ -18,6 +18,9 @@ alignSeq(
 \item{study_table}{A tibble consisting of antigen receptor sequences
 imported by the LymphoSeq function readImmunoSeq.}
 
+\item{repertoire_ids}{A character vector indicating the name of the repertoire_id in the productive
+sequence list.}
+
 \item{sequence_list}{A character vector of one ore more amino acid or junction
 CDR3 sequences to search.}
 
@@ -32,9 +35,6 @@ be used.  Refer to the Bioconductor msa package for more details.  Options inclu
 "ClustalW", "ClustalOmega", and "Muscle".}
 
 \item{top}{The number of top sequences to perform alignment.}
-
-\item{repertoire_id}{A character vector indicating the name of the repertoire_id in the productive
-sequence list.}
 }
 \value{
 Performs a multiple sequence alignment object.
@@ -55,7 +55,7 @@ the sequences different by a single amino acid or junction.
 \examples{
 file_path <- system.file("extdata", "IGH_sequencing", package = "LymphoSeq2")
 
-stable <- readImmunoSeq(path = file_path)
+stable <- readImmunoSeq(path = file_path, threads = 1)
 
 ntable <- productiveSeq(stable, aggregate = "junction")
 

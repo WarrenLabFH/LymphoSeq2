@@ -7,7 +7,11 @@
 searchIreceptor(...)
 }
 \arguments{
-\item{row_tibble}{A row tibble mapped from searchDB}
+\item{...}{
+  Arguments passed on to \code{\link[=searchIreceptor]{searchIreceptor}}
+  \describe{
+    \item{\code{}}{}
+  }}
 }
 \value{
 Returns a tibble of with sample name and instance in the sample
